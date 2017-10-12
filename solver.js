@@ -1,9 +1,23 @@
 var numbers = require('numbers');
 
+/**
+ * Функция необходимое для вычисление функции Лапласа значение
+ * @param {Number} x - аргумент функиции
+ * 
+ * @return {Number} - значение функции
+ */
 const laplasianFunc = (x) => {
   return Math.exp(-(x * x)/2);
 }
 
+/**
+ * Функция высчитывающая функцию Лапласа
+ *
+ * @param {Number} x1 - аргумент функиции
+ * @param {Number} x2 - аргумент функиции
+ * 
+ * @return {Number} - минимальное количество серверов
+ */
 const getLaplasianFunc = (x1, x2) => {
   const integral = numbers.calculus.Riemann(laplasianFunc, x1, x2, 200, 0.0001);
   const result = integral/(Math.sqrt(2 * Math.PI))
@@ -11,6 +25,15 @@ const getLaplasianFunc = (x1, x2) => {
   return result;  
 }
 
+/**
+ * Функция высчитывающая необходимое количество серверов по количеству процессов
+ *
+ * @param {Number} N - необходимо количество запущенных процессов конвертации
+ * @param {Number} T - общее время на работу
+ * @param {Number} t - время конвертации
+ * 
+ * @return {Number} - минимальное количество серверов
+ */
 const getServersAmount = (N, T, t) => {
   let serversAmount = 0
   if (Math.trunc(T/2) > t) {
@@ -22,7 +45,7 @@ const getServersAmount = (N, T, t) => {
 }
 
 /**
- * Функция высчитывающая необходимое количество серверов
+ * Экспортируемый модуль
  * 
  * @param {Number} T - общее время на работу
  * @param {Number} t - время конвертации
@@ -45,13 +68,13 @@ module.exports = (T, t, n, x) => {
     throw new Error('Конвертация невозможна');
   }
 
-  let x1 = (n - N * p)/Math.sqrt(N * p * (1-p))
-  let x2 = (N - N * p)/Math.sqrt(N * p * (1-p))
+  let x1 = (n - N * p)/Math.sqrt(N * p * (1 - p))
+  let x2 = (N - N * p)/Math.sqrt(N * p * (1 - p))
 
   while(getLaplasianFunc(x1, x2) - 0.99 < 0.0001) {
     N += 1;
-    x1 = (n - N * p)/Math.sqrt(N*p*(1-p))
-    x2 = (N - N * p)/Math.sqrt(N*p*(1-p))
+    x1 = (n - N * p)/Math.sqrt(N * p * (1 - p))
+    x2 = (N - N * p)/Math.sqrt(N * p * (1 - p))
   }
 
   return getServersAmount(N, T, t);
