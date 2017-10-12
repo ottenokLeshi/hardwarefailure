@@ -1,0 +1,23 @@
+{
+  "name": "hardwarefailure",
+  "version": "1.0.0",
+  "description": "## Сбой​ ​оборудования",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ottenokLeshi/hardwarefailure.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ottenokLeshi/hardwarefailure/issues"
+  },
+  "homepage": "https://github.com/ottenokLeshi/hardwarefailure#readme",
+  "dependencies": {
+    "numbers": "^0.6.0"
+  }
+}
